@@ -16,13 +16,12 @@ namespace WasteManagement1.Models
 
         public string City { get; set; }
 
-        public string State { get; set; }
-
-        [ForeignKey("PostalCode")]
-        public int postalCodeId { get; set; }
+        public string State { get; set; }        
 
         public PostalCode PostalCode { get; set; }
 
+        public ICollection<Employee> Employees { get; set; }
 
+        public ICollection<Customer> Customers { get; set; }
     }
 }

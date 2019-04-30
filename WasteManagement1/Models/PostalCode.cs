@@ -12,5 +12,7 @@ namespace WasteManagement1.Models
         public int PostalCodeId { get; set; }
 
         public int postalCode { get; set; }
+
+        public ICollection<Address> Addresses { get; set; }
     }
 }

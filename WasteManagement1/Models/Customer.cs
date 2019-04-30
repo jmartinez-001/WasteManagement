@@ -18,17 +18,9 @@ namespace WasteManagement1.Models
 
         public int Phone { get; set; }
 
-        public string Email { get; set; }  
-        
-        [ForeignKey("Address")]
-        public int pickupAddress { get; set; }
+        public string Email { get; set; }
 
-        public Address Pickup { get; set; }
-
-        [ForeignKey("Address")]
-        public int billingAddress { get; set; }
-
-        public Address Billing { get; set; }
+        public Address Address { get; set; }                
 
         public string pickUpDay { get; set; }
 
