@@ -31,9 +31,9 @@ namespace WasteManagement1.Models
         public int ZipCode { get; set; }
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
 
 

@@ -7,13 +7,13 @@ namespace WasteManagement1.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class CorrectedMigration : IMigrationMetadata
+    public sealed partial class currentModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CorrectedMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(currentModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904302248138_CorrectedMigration"; }
+            get { return "201905011507346_current Model"; }
         }
         
         string IMigrationMetadata.Source
