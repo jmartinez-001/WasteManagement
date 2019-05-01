@@ -20,10 +20,10 @@ namespace WasteManagement1.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Address> Addresses { get; set; }
+        
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<PostalCode> PostalCodes { get; set; }
+        public DbSet<Pickup> Pickups { get; set; }
         
 
         public ApplicationDbContext()

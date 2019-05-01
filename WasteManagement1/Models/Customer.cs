@@ -12,35 +12,52 @@ namespace WasteManagement1.Models
         [Key]
         public int Id { get; set; }
 
-        public string firstName { get; set; }
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
 
-        public string lastName { get; set; }
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
-        public int Phone { get; set; }
+        [Display(Name = "Street Address")]
+        public string Address { get; set; }
 
-        public string Email { get; set; }  
-        
-        [ForeignKey("Address")]
-        public int pickupAddress { get; set; }
+        [Display(Name = "City")]
+        public string City { get; set; }
 
-        public Address Pickup { get; set; }
+        [Display(Name = "State")]
+        public string State { get; set; }
 
-        [ForeignKey("Address")]
-        public int billingAddress { get; set; }
+        [Display(Name = "Zip Code")]
+        public int ZipCode { get; set; }
 
-        public Address Billing { get; set; }
+        [Display(Name = "PickUp Day")]        
+        public DayOfWeek PickUpDay { get; set; }
 
-        public string pickUpDay { get; set; }
+        [Display(Name = "Extra PickUp Day")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ExtraPickUpDay { get; set; }
 
-        public string extraPickUpDay { get; set; }
+        [Display(Name = "Account Status")]
+        public string AccountStatus { get; set; }
 
-        public string accountStatus { get; set; }
+        [Display(Name = "Amount Due")]
+        public double AmountDue { get; set; }
 
-        public string vacationStart { get; set; }
+        [Display(Name = "Start Service")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ServiceStart { get; set; }
 
-        public string vacationEnd { get; set; }
+        [Display(Name = "Stop Service")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ServiceStop { get; set; }
 
-        
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+
+        public ApplicationUser User { get; set; }
 
     }
 }

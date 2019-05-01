@@ -12,20 +12,30 @@ namespace WasteManagement1.Models
         [Key]
         public int Id { get; set; }
 
-        public string firstName { get; set; }
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
 
-        public string lastName { get; set; }
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
-        public int Phone { get; set; }
+        [Display(Name = "Street Address")]
+        public string Address { get; set; }
 
-        public string Email { get; set; }
+        [Display(Name = "City")]
+        public string City { get; set; }
 
-        [ForeignKey("Address")]
-        public int PhysicalAddress { get; set; }
+        [Display(Name = "State")]
+        public string State { get; set; }
 
-        public Address Address { get; set; }
+        [Display(Name = "Zip Code")]
+        public int ZipCode { get; set; }
 
-        
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+
+        public ApplicationUser User { get; set; }
+
+
 
     }
 }
