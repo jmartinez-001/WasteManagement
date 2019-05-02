@@ -15,11 +15,7 @@ namespace WasteManagement1.Models
         public DateTime Date { get; set; }
 
         public bool PickupCompleted { get; set; }
-
-        public string Lat { get; set; }
-
-        public string Long { get; set; }
-
+        
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }

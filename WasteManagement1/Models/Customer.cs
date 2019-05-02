@@ -18,17 +18,29 @@ namespace WasteManagement1.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Street Address is required")]
         [Display(Name = "Street Address")]
         public string Address { get; set; }
 
+        [Required(ErrorMessage = "City is required")]
         [Display(Name = "City")]
         public string City { get; set; }
 
+        [Required(ErrorMessage = "State is required")]
         [Display(Name = "State")]
         public string State { get; set; }
 
+        [Required(ErrorMessage = "Zip Code is required")]
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
+
+        public float Latitude { get; set; }
+
+        public float Longitude { get; set; }
+
+        public List<Country> Countries { get; set; }
+
+        public string CountryCode { get; set; }
 
         [Display(Name = "PickUp Day")]        
         public DayOfWeek PickUpDay { get; set; }
@@ -59,5 +71,16 @@ namespace WasteManagement1.Models
 
         public virtual ApplicationUser User { get; set; }
 
+    }
+
+    public class Country
+    {
+        #region Properties  
+        public int CountryId { get; set; }
+        public string CountryName { get; set; }
+        public string MapReference { get; set; }
+        public string CountryCode { get; set; }
+        public string CountryCodeLong { get; set; }
+        #endregion
     }
 }

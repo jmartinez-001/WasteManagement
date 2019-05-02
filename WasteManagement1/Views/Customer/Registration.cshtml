@@ -6,10 +6,16 @@
 
 <h2>Registration</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
+    <script src="~/Scripts/jquery-2.2.3.js"></script>
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+
     <div class="form-horizontal">
         <h4>Customer</h4>
         <hr />
@@ -61,7 +67,7 @@
                 @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
             </div>
         </div>
- 
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -71,5 +77,5 @@
 }
 
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

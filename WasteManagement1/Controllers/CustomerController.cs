@@ -33,9 +33,13 @@ namespace WasteManagement1.Controllers
         // GET: Customer/Create
         public ActionResult Registration()
         {
+
             string id = User.Identity.GetUserId();
             Customer customer = new Customer();
-            return View(customer);
+            List<Country> objCountry = new List<Country>();
+            CountryModel cModel = new CountryModel();
+            objCountry = cModel.GetCountries();
+            return View(new Customer { Countries = objCountry });
         }
 
         // POST: Customer/Create

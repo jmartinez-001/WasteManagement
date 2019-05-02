@@ -181,12 +181,9 @@
     <Compile Include="Migrations\201905011507346_current Model.Designer.cs">
       <DependentUpon>201905011507346_current Model.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905012046108_added UserRoles and UserName to RegisterViewModel.cs" />
-    <Compile Include="Migrations\201905012046108_added UserRoles and UserName to RegisterViewModel.Designer.cs">
-      <DependentUpon>201905012046108_added UserRoles and UserName to RegisterViewModel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -284,9 +281,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905011507346_current Model.resx">
       <DependentUpon>201905011507346_current Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905012046108_added UserRoles and UserName to RegisterViewModel.resx">
-      <DependentUpon>201905012046108_added UserRoles and UserName to RegisterViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
