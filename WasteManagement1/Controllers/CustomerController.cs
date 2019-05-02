@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -35,11 +37,8 @@ namespace WasteManagement1.Controllers
         {
 
             string id = User.Identity.GetUserId();
-            Customer customer = new Customer();
-            List<Country> objCountry = new List<Country>();
-            CountryModel cModel = new CountryModel();
-            objCountry = cModel.GetCountries();
-            return View(new Customer { Countries = objCountry });
+            Customer customer = new Customer();           
+            return View(customer);
         }
 
         // POST: Customer/Create
@@ -115,6 +114,29 @@ namespace WasteManagement1.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        [HttpGet, ActionName("GetEventVenuesList")]
+        public JsonResult GetEventVenuesList(string SearchText)
+        {
+            string placeApiUrl = ConfigurationManager.AppSettings["GooglePlaceAPIUrl"];
+
+            try
+            {
+                placeApiUrl = placeApiUrl.Replace("{0}", SearchText);
+                placeApiUrl = placeApiUrl.Replace("{1}", ConfigurationManager.AppSettings["GooglePlaceAPIKey"]);
+
+                var result = new System.Net.WebClient().DownloadString(placeApiUrl);
+                var Jsonobject = JsonConvert.DeserializeObject<RootObject>(result);
+
+                List<Prediction> list = Jsonobject.predictions;
+
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
 

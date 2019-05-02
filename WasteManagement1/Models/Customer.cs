@@ -40,11 +40,7 @@ namespace WasteManagement1.Models
 
         public float Latitude { get; set; }
 
-        public float Longitude { get; set; }
-
-        public List<Country> Countries { get; set; }
-
-        public string CountryCode { get; set; }
+        public float Longitude { get; set; }        
 
         [Display(Name = "PickUp Day")]        
         public DayOfWeek PickUpDay { get; set; }
@@ -75,113 +71,19 @@ namespace WasteManagement1.Models
 
         public virtual ApplicationUser User { get; set; }
 
-    }
+    }   
 
-    public class Country
+    public class Prediction
     {
-        #region Properties  
-        public int CountryId { get; set; }
-        public string CountryName { get; set; }
-        public string MapReference { get; set; }
-        public string CountryCode { get; set; }
-        public string CountryCodeLong { get; set; }
-        #endregion
+        public string description { get; set; }
+        public string id { get; set; }
+        public string place_id { get; set; }
+        public string reference { get; set; }
+        public List<string> types { get; set; }
     }
-
-    public class CountryModel
+    public class RootObject
     {
-        #region DatabaseMethod  
-        public List<T> ConvertTo<T>(DataTable datatable) where T : new()
-        {
-            List<T> Temp = new List<T>();
-            try
-            {
-                List<string> columnsNames = new List<string>();
-                foreach (DataColumn DataColumn in datatable.Columns)
-                    columnsNames.Add(DataColumn.ColumnName);
-                Temp = datatable.AsEnumerable().ToList().ConvertAll<T>(row => getObject<T>(row, columnsNames));
-                return Temp;
-            }
-            catch
-            {
-                return Temp;
-            }
-
-        }
-        public T getObject<T>(DataRow row, List<string> columnsName) where T : new()
-        {
-            T obj = new T();
-            try
-            {
-                string columnname = "";
-                string value = "";
-                PropertyInfo[] Properties;
-                Properties = typeof(T).GetProperties();
-                foreach (PropertyInfo objProperty in Properties)
-                {
-                    columnname = columnsName.Find(name => name.ToLower() == objProperty.Name.ToLower());
-                    if (!string.IsNullOrEmpty(columnname))
-                    {
-                        value = row[columnname].ToString();
-                        if (!string.IsNullOrEmpty(value))
-                        {
-                            if (Nullable.GetUnderlyingType(objProperty.PropertyType) != null)
-                            {
-                                value = row[columnname].ToString().Replace("$", "").Replace(",", "");
-                                objProperty.SetValue(obj, Convert.ChangeType(value, Type.GetType(Nullable.GetUnderlyingType(objProperty.PropertyType).ToString())), null);
-                            }
-                            else
-                            {
-                                value = row[columnname].ToString();
-                                objProperty.SetValue(obj, Convert.ChangeType(value, Type.GetType(objProperty.PropertyType.ToString())), null);
-                            }
-                        }
-                    }
-                }
-                return obj;
-            }
-            catch
-            {
-                return obj;
-            }
-        }
-        #endregion
-
-        SqlConnection con;
-        SqlDataAdapter adap;
-        DataTable dt;
-        SqlCommand cmd;
-        public CountryModel()
-        {
-            string conn = ConfigurationManager.ConnectionStrings["CountryConnectionString"].ConnectionString;
-            con = new SqlConnection(conn);
-        }
-
-        public List<Country> GetCountries()
-        {
-            List<Country> countries = new List<Country>();
-            try
-            {
-                con.Open();
-                adap = new SqlDataAdapter();
-                dt = new DataTable();
-                cmd = new SqlCommand("GetCountries", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                adap.SelectCommand = cmd;
-                adap.Fill(dt);
-                countries = ConvertTo<Country>(dt);
-            }
-            catch (Exception x)
-            {
-
-            }
-            finally
-            {
-                cmd.Dispose();
-                con.Close();
-            }
-            return countries;
-        }
+        public List<Prediction> predictions { get; set; }
+        public string status { get; set; }
     }
 }
