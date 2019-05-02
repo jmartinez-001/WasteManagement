@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,6 +19,8 @@ namespace WasteManagement1.Controllers
         // GET: Employee
         public ActionResult Index()
         {
+            string id = User.Identity.GetUserId();
+            Employee employee = db.Employees.Where(c => c.UserId == id).FirstOrDefault();
             return View();
         }
 
@@ -28,19 +31,22 @@ namespace WasteManagement1.Controllers
         }
 
         // GET: Employee/Create
-        public ActionResult Create()
+        public ActionResult Registration()
         {
-            return View();
+            string id = User.Identity.GetUserId();
+            Employee employee = new Employee();
+            return View(employee);
         }
 
         // POST: Employee/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Registration(Employee newEmployee)
         {
+
             try
             {
-                // TODO: Add insert logic here
-
+                db.Employees.Add(newEmployee);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch

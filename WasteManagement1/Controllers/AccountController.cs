@@ -167,8 +167,16 @@ namespace WasteManagement1.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     //Assign Role to user Here      
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-                    //Ends Here    
-                    return RedirectToAction("Index", "Home");
+                    //Ends Here
+                    if (this.User.IsInRole("Customer"))
+                    {
+                        return RedirectToAction("Registration", "Customer"); 
+                    }
+                    else
+                    {
+                        return RedirectToAction("Registration", "Employee");
+                    }
+                    
                 }
 
                 ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");                

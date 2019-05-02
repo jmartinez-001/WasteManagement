@@ -31,7 +31,33 @@ namespace WasteManagement1.Controllers
         }
 
         // GET: Customer/Create
-        public ActionResult Service()
+        public ActionResult Registration()
+        {
+            string id = User.Identity.GetUserId();
+            Customer customer = new Customer();
+            return View(customer);
+        }
+
+        // POST: Customer/Create
+        [HttpPost]
+        public ActionResult Registration(Customer newCustomer)
+        {
+           
+
+            try
+            {
+                db.Customers.Add(newCustomer);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Customer/Create
+        public ActionResult Services()
         {
             Pickup newPickUp = new Pickup();
             string id = User.Identity.GetUserId();
@@ -41,7 +67,7 @@ namespace WasteManagement1.Controllers
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Service(Customer Customer, Pickup newPickup)
+        public ActionResult Services(Customer Customer, Pickup newPickup)
         {
             string id = User.Identity.GetUserId();
             Customer customer = db.Customers.Where(c => c.UserId == id).FirstOrDefault();
@@ -50,7 +76,7 @@ namespace WasteManagement1.Controllers
             {
                 db.Pickups.Add(newPickup);
                 db.SaveChanges();
-                return RedirectToAction("Service");
+                return RedirectToAction("Services");
             }
             catch
             {
