@@ -33,7 +33,7 @@ namespace WasteManagement1.Controllers
         }
 
         // GET: Customer/Create
-        public ActionResult Registration()
+        public ActionResult Registrations()
         {
 
             string id = User.Identity.GetUserId();
@@ -43,14 +43,16 @@ namespace WasteManagement1.Controllers
 
         // POST: Customer/Create
         [HttpPost]
-        public ActionResult Registration(Customer newCustomer)
+        public ActionResult Registrations(Customer newCustomer)
         {
            
 
             try
             {
                 db.Customers.Add(newCustomer);
+                //TODO: INSERT GEOCODE REQUEST HERE TO GET LAT AND LONG FROM ADDRESS
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             catch
@@ -117,49 +119,6 @@ namespace WasteManagement1.Controllers
             }
         }
 
-        [HttpGet, ActionName("GetEventVenuesList")]
-        public JsonResult GetEventVenuesList(string SearchText)
-        {
-            string placeApiUrl = ConfigurationManager.AppSettings["GooglePlaceAPIUrl"];
-
-            try
-            {
-                placeApiUrl = placeApiUrl.Replace("{0}", SearchText);
-                placeApiUrl = placeApiUrl.Replace("{1}", ConfigurationManager.AppSettings["GooglePlaceAPIKey"]);
-
-                var result = new System.Net.WebClient().DownloadString(placeApiUrl);
-                var Jsonobject = JsonConvert.DeserializeObject<RootObject>(result);
-
-                List<Prediction> list = Jsonobject.predictions;
-
-                return Json(list, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        // GET: Customer/Delete/5
-        //public ActionResult Delete(int id)
-        //{
-        //    return View();
-        //}
-
-        //// POST: Customer/Delete/5
-        //[HttpPost]
-        //public ActionResult Delete(int id, FormCollection collection)
-        //{
-        //    try
-        //    {
-        //        // TODO: Add delete logic here
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        
     }
 }

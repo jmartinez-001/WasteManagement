@@ -21,12 +21,14 @@ namespace WasteManagement1.Controllers
         {
             string id = User.Identity.GetUserId();
             Employee employee = db.Employees.Where(c => c.UserId == id).FirstOrDefault();
-            return View();
+            List<Customer> pickups = db.Customers.Where(c => c.ZipCode == employee.ZipCode && c.PickUpDay == DayOfWeek.Monday || c.ExtraPickUpDay == DateTime.Today).ToList();
+            return View(pickups);
         }
 
         // GET: Employee/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(Customer displayCustomer)
         {
+            
             return View();
         }
 
