@@ -21,9 +21,10 @@ namespace WasteManagement1.Controllers
         {
             string id = User.Identity.GetUserId();
             Employee employee = db.Employees.Where(c => c.UserId == id).FirstOrDefault();
-            //List<Customer> pickups = new List<Customer>();
-            //pickups = db.Customers.Where(c => c.ZipCode == employee.ZipCode).ToList();
-            return View(employee);
+            List<Customer> pickups = new List<Customer>();
+            pickups = db.Customers.Where(c => c.ZipCode == employee.ZipCode).ToList();
+            ViewBag.CustomerList = pickups;
+            return View();
         }
 
         // GET: Employee/Details/5

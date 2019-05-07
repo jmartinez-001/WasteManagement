@@ -69,9 +69,13 @@
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj1wU8gh7zxSn3ARB7jSL_5iS2D28eqKA&callback=initMap">
         </script>
 
+        @foreach (var customer in ViewBag.CustomerList)
+        {
+            @Html.DisplayFor(model => customer.FirstName)           
 
+        }
 
-        <dl class="dl-horizontal">
+        @*<dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.FirstName)
             </dt>
@@ -128,7 +132,7 @@
                 @Html.DisplayFor(model => model.UserId)
             </dd>
 
-        </dl>
+        </dl>*@
     </div>
     @*<p>
             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
