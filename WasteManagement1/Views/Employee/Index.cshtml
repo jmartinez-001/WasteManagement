@@ -1,7 +1,7 @@
 ﻿@model WasteManagement1.Models.Employee
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home Dashboard";
 }
 <style>
     /* Always set the map height explicitly to define the size of the div
@@ -18,7 +18,7 @@
     }
 </style>
 
-<h2>Index</h2>
+<h2>Dashboard</h2>
 <div class="row">
 
     <div id="map"></div>
@@ -69,11 +69,11 @@
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCj1wU8gh7zxSn3ARB7jSL_5iS2D28eqKA&callback=initMap">
         </script>
 
-        @foreach (var customer in ViewBag.CustomerList)
+        @*@foreach (var customer in ViewBag.CustomerList)
         {
             @Html.DisplayFor(model => customer.FirstName)           
 
-        }
+        }*@
 
         @*<dl class="dl-horizontal">
             <dt>
@@ -134,8 +134,7 @@
 
         </dl>*@
     </div>
-    @*<p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-            @Html.ActionLink("Back to List", "Index")
-        </p>*@
+    <p>
+            @Html.ActionLink("Dashboard", "Index")
+        </p>
 </div>
