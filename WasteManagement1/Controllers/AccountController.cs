@@ -168,14 +168,9 @@ namespace WasteManagement1.Controllers
                     //Assign Role to user Here      
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     //Ends Here
-                    if (this.User.IsInRole("Customer"))
-                    {
-                        return RedirectToAction("Registration", "Customer"); 
-                    }
-                    else
-                    {
-                        return RedirectToAction("Registration", "Employee");
-                    }
+                   
+                    return RedirectToAction("Index", "Users");
+                    
                     
                 }
 

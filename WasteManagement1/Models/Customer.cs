@@ -21,22 +21,18 @@ namespace WasteManagement1.Models
 
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        [Required(ErrorMessage = "Street Address is required")]
+       
         [Display(Name = "Street Address")]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "City is required")]
         [Display(Name = "City")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "State is required")]
         [Display(Name = "State")]
         public string State { get; set; }
 
-        [Required(ErrorMessage = "Zip Code is required")]
         [Display(Name = "Zip Code")]
-        public int ZipCode { get; set; }
+        public string ZipCode { get; set; }
 
         public float Latitude { get; set; }
 
@@ -69,7 +65,7 @@ namespace WasteManagement1.Models
         [ForeignKey("User")]
         public string UserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public ApplicationUser User { get; set; }
 
     }   
 

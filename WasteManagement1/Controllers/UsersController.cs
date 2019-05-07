@@ -17,25 +17,25 @@ namespace WasteManagement1.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                var user = User.Identity;
-                ViewBag.Name = user.Name;
 
-                ViewBag.displayMenu = "No";
 
-                if (isAdminUser())
+                if (isEmployeeUser())
                 {
-                    ViewBag.displayMenu = "Yes";
+                    return RedirectToAction("Registration", "Employee");
                 }
-                return View();
+                else
+                {
+                    return RedirectToAction("Registrations", "Customer");
+
+                }
             }
             else
             {
-                ViewBag.Name = "Not Logged IN";
+                return View();
             }
-            return View();
-        }
 
-        private bool isAdminUser()
+        }
+        public Boolean isEmployeeUser()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -43,7 +43,7 @@ namespace WasteManagement1.Controllers
                 ApplicationDbContext context = new ApplicationDbContext();
                 var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
                 var s = UserManager.GetRoles(user.GetUserId());
-                if (s[0].ToString() == "Admin")
+                if (s[0].ToString() == "Employee")
                 {
                     return true;
                 }

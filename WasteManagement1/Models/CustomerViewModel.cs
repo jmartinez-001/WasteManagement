@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace WasteManagement1.Models
 {
-    public class Employee
+    public class CustomerViewModel
     {
-        [Key]
-        public int Id { get; set; }
-
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
@@ -30,12 +26,8 @@ namespace WasteManagement1.Models
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
 
-        [ForeignKey("User")]
-        public string UserId { get; set; }
+        public float Latitude { get; set; }
 
-        public ApplicationUser User { get; set; }
-
-
-
+        public float Longitude { get; set; }
     }
 }

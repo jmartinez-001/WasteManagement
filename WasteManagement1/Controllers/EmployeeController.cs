@@ -21,22 +21,35 @@ namespace WasteManagement1.Controllers
         {
             string id = User.Identity.GetUserId();
             Employee employee = db.Employees.Where(c => c.UserId == id).FirstOrDefault();
-            List<Customer> pickups = db.Customers.Where(c => c.ZipCode == employee.ZipCode && c.PickUpDay == DayOfWeek.Monday || c.ExtraPickUpDay == DateTime.Today).ToList();
-            return View(pickups);
+            //List<Customer> pickups = new List<Customer>();
+            //pickups = db.Customers.Where(c => c.ZipCode == employee.ZipCode).ToList();
+            return View(employee);
         }
 
         // GET: Employee/Details/5
-        public ActionResult Details(Customer displayCustomer)
+        public ActionResult Details(Customer customer)
         {
-            
-            return View();
+            CustomerViewModel displayCustomer = new CustomerViewModel();
+            displayCustomer.FirstName = customer.FirstName;
+            displayCustomer.LastName = customer.LastName;
+            displayCustomer.Address = customer.Address;
+            displayCustomer.City = customer.City;
+            displayCustomer.State = customer.State;
+            displayCustomer.ZipCode = customer.ZipCode;
+            displayCustomer.Latitude = customer.Latitude;
+            displayCustomer.Longitude = customer.Longitude;
+            ViewBag.Id = customer.Id;
+            displayCustomer.FirstName = customer.FirstName;
+            return View(displayCustomer);
         }
 
         // GET: Employee/Create
         public ActionResult Registration()
         {
             string id = User.Identity.GetUserId();
-            Employee employee = new Employee();
+            Employee employee = new Employee { UserId = id };
+            db.Employees.Add(employee);
+            db.SaveChanges();
             return View(employee);
         }
 
@@ -44,12 +57,19 @@ namespace WasteManagement1.Controllers
         [HttpPost]
         public ActionResult Registration(Employee newEmployee)
         {
+            string id = User.Identity.GetUserId();
+            Employee employee = db.Employees.Where(c => c.UserId == id).FirstOrDefault();
 
             try
             {
-                db.Employees.Add(newEmployee);
+                employee.FirstName = newEmployee.FirstName;
+                employee.LastName = newEmployee.LastName;
+                employee.Address = newEmployee.Address;
+                employee.City = newEmployee.City;
+                employee.State = newEmployee.State;
+                employee.ZipCode = newEmployee.ZipCode;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Employee");
             }
             catch
             {

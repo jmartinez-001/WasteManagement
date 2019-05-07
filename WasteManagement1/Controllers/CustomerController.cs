@@ -23,7 +23,7 @@ namespace WasteManagement1.Controllers
         {
             string id = User.Identity.GetUserId();
             Customer customer = db.Customers.Where(c => c.UserId == id).FirstOrDefault();
-            return View();
+            return View(customer);
         }
 
         // GET: Customer/Details/5
@@ -35,9 +35,11 @@ namespace WasteManagement1.Controllers
         // GET: Customer/Create
         public ActionResult Registrations()
         {
-
+            //TODO : Fix routing of employee or customer creation with addition of properties
             string id = User.Identity.GetUserId();
-            Customer customer = new Customer();           
+            Customer customer = new Customer { UserId = id, AccountStatus = "Active" };
+            db.Customers.Add(customer);
+            db.SaveChanges();
             return View(customer);
         }
 
@@ -45,15 +47,23 @@ namespace WasteManagement1.Controllers
         [HttpPost]
         public ActionResult Registrations(Customer newCustomer)
         {
-           
+            string id = User.Identity.GetUserId();
+            Customer customer = db.Customers.Where(c => c.UserId == id).FirstOrDefault();
 
             try
             {
-                db.Customers.Add(newCustomer);
+
+                customer.FirstName = newCustomer.FirstName;
+                customer.LastName = newCustomer.LastName;
+                customer.Address = newCustomer.Address;
+                customer.City = newCustomer.City;
+                customer.State = newCustomer.State;
+                customer.ZipCode = newCustomer.ZipCode;
+                
                 //TODO: INSERT GEOCODE REQUEST HERE TO GET LAT AND LONG FROM ADDRESS
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Customer");
             }
             catch
             {
