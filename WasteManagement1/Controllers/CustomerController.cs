@@ -59,7 +59,11 @@ namespace WasteManagement1.Controllers
                 customer.City = newCustomer.City;
                 customer.State = newCustomer.State;
                 customer.ZipCode = newCustomer.ZipCode;
-                
+                string address = (newCustomer.Address + "+" + newCustomer.City + "+" + newCustomer.State + "+" + newCustomer.ZipCode);
+                GeocodeController geocode = new GeocodeController();
+                geocode.SendRequest(address);
+                customer.Latitude = geocode.latitude;
+                customer.Longitude = geocode.longitude;
                 //TODO: INSERT GEOCODE REQUEST HERE TO GET LAT AND LONG FROM ADDRESS
                 db.SaveChanges();
 

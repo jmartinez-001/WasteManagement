@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -9,44 +8,40 @@ using System.Web.Mvc;
 
 namespace WasteManagement1.Controllers
 {
-    public class GeocodeController
-    {
-        string _lat;
-        string _lng;
-        public string latitude { get { return _lat; } }
-        public string longitude { get { return _lng; } }
-        
-        //Geocode
-        public void SendRequest(string Address)
+    public class DistanceController
+    {       
+  
+        string _distance;
+        public string distance { get { return _distance; } }
+
+        //DistanceMatrix
+        public void SendRequest(string origins, string destinations)
         {
-            string google = "https://maps.googleapis.com/maps/api/geocode/json?address=" + Address + "&key=" + Models.Key.GetKey();
+            string google = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + origins + "&destinations=" + destinations + "&key=" + Models.Key.GetKey();
             RunAsync(google).GetAwaiter().GetResult();
 
         }
 
         public class JSONObj
         {
-            public Results[] results { get; set; }
-        }
+            public Rows[] rows { get; set; }
+        }                   
 
-        public class Results
+        public class Rows
         {
-            public Geometry geometry { get; set; }
+            public Elements[] Elements { get; set; }
         }
 
-        public class Geometry
+        public class Elements
         {
-            public Location location { get; set; }
+            public Distance Distance { get; set; }
         }
 
-        public class Location
+        public class Distance
         {
-            public string lat { get; set; }
-            public string lng { get; set; }
+            public string Text { get; set; }
         }
 
-        
-              
         static HttpClient client = new HttpClient();
 
         async Task<JSONObj> GetResults(string url)
@@ -68,17 +63,14 @@ namespace WasteManagement1.Controllers
             try
             {
                 JSONObj result = await GetResults(url).ConfigureAwait(false);
-                _lat = result.results[0].geometry.location.lat;
-                _lng = result.results[0].geometry.location.lng;
+                _distance = result.rows[0].Elements[0].Distance.Text;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
         }
-        
+
 
     }
-
-    
-} 
+}
